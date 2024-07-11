@@ -3,7 +3,8 @@ from django.shortcuts import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status 
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.decorators import api_view, permission_classes
 # Create your views here.
 
 
@@ -17,3 +18,8 @@ class HelloView(APIView):
     def get(self, request):
         content = {'message': 'Hello, World!'}
         return Response(content, status=status.HTTP_200_OK)
+    
+@api_view(["POST","GET"])
+@permission_classes([AllowAny])
+def Signup(request):
+    return HttpResponse("Inside the signup url")

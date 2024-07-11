@@ -7,4 +7,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("hello", views.HelloView.as_view(), name="hello_view" ),
     path ("token_auth_generate", obtain_auth_token, name="token_generation"),       #Getting token for already created users.
+    path("signup", views.Signup, name="signup"),
 ]
