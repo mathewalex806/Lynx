@@ -5,6 +5,9 @@ from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
+from .serializers import UserSerializer
+from .models import *
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -18,8 +21,15 @@ class HelloView(APIView):
     def get(self, request):
         content = {'message': 'Hello, World!'}
         return Response(content, status=status.HTTP_200_OK)
-    
+
+## SIGN UP method    
 @api_view(["POST","GET"])
 @permission_classes([AllowAny])
 def Signup(request):
-    return HttpResponse("Inside the signup url")
+    if request.method == "POST":
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()                                                   ##Calls the create user method in the serializer
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse("Get url for signup")
