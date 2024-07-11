@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view, permission_classes
 from .serializers import UserSerializer
 from .models import *
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
 # Create your views here.
 
 
@@ -33,3 +35,21 @@ def Signup(request):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)
     return HttpResponse("Get url for signup")
+
+
+##LOGIN method
+@api_view(["POST","GET"])
+@permission_classes([AllowAny])
+def Login(request):
+    if request.method == "POST":
+        username = request.data["username"]
+        password = request.data["password"]
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key, "message":"Login successfull"}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse("GET url for login page")
