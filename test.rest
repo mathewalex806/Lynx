@@ -19,7 +19,7 @@ POST http://localhost:8000/login/
 Content-Type: application/json
 
 {
-  "username": "testuser",
+  "username": "testuser1",
   "password": "password123"
 }
 
@@ -33,4 +33,16 @@ Content-Type: application/json
 {
   "username": "invaliduser",
   "password": "invalidpassword"
+}
+
+###
+
+### Auth token generation
+
+POST http://localhost:8000/token_auth_generate/
+Content-Type: application/json
+
+{
+  "username": "testuser1",
+  "password": "password123"
 }
