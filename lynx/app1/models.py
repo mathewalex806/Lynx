@@ -1,3 +1,51 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
+
+
+
+#Adding Community table
+
+class Community (models.Model):
+    name = models.CharField(max_length=50, null=False, blank=False)
+    description = models.TextField(blank=True, null=True)
+    city = models.CharField(max_length=50,blank=False, null=False)
+    locality = models.CharField(max_length=50)
+    country = models.CharField(max_length=70, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Camera(models.Model):
+    name = models.CharField(max_length=50, null=False, blank=False)
+    added_on = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, default='active')  
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+class User_Community(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_community")
+    community = models.ForeignKey(Community, on_delete=models.CASCADE, related_name="user_community")
+    joined_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'community')
+
+    def __str__(self):
+        return f"{self.user.username} is part of {self.community.name}"
+    
+class Camera_Community(models.Model):
+    camera  = models.ForeignKey(Camera, on_delete=models.CASCADE,related_name="camera_community")
+    community = models.ForeignKey(Community, on_delete=models.CASCADE,related_name="camera_community")
+    added_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('camera', 'community')
+
+    def __str__(self):
+        return f"{self.camera.name} is part of {self.community.name}"
