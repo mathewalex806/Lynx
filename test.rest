@@ -1,0 +1,36 @@
+### Signup Test for testuser
+
+POST http://localhost:8000/signup/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "password123",
+  "first_name": "Test",
+  "last_name": "User"
+}
+
+###
+
+### Login Test for testuser
+
+POST http://localhost:8000/login/
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "password123"
+}
+
+###
+
+### Login Test for invalid user
+
+POST http://localhost:8000/login/
+Content-Type: application/json
+
+{
+  "username": "invaliduser",
+  "password": "invalidpassword"
+}
