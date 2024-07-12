@@ -94,7 +94,7 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'app1.User'
+
 
 
 # Password validation
