@@ -35,3 +35,14 @@ class Community (models.Model):
         return self.name
 
 
+class Camera(models.Model):
+    name = models.CharField(max_length=50, null=False, blank=False)
+    added_on = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, default='active')  
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+    
