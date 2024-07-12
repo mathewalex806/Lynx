@@ -45,4 +45,24 @@ class Camera(models.Model):
     def __str__(self):
         return self.name
     
+class User_Community(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_community")
+    community = models.ForeignKey(Community, on_delete=models.CASCADE, related_name="user_community")
+    joined_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'community')
+
+    def __str__(self):
+        return f"{self.user.username} is part of {self.community.name}"
     
+class Camera_Community(models.Model):
+    camera  = models.ForeignKey(Camera, on_delete=models.CASCADE,related_name="camera_community")
+    community = models.ForeignKey(Community, on_delete=models.CASCADE,related_name="camera_community")
+    added_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('camera', 'community')
+
+    def __str__(self):
+        return f"{self.camera.name} is part of {self.community.name}"
