@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from .serializers import UserSerializer
+from .serializers import UserSerializer, CameraSerializer
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -53,3 +53,13 @@ def Login(request):
         else:
             return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
     return HttpResponse("GET url for login page")
+
+##Add Camera fuction
+
+@api_view(["GET","POST"])
+@permission_classes([AllowAny])
+def addCamera(request):
+    if request.method == "POST":
+        camera_ser = CameraSerializer(data=request.data)
+        if camera_ser.is_valid():
+            camera_ser.create()

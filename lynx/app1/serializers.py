@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import Camera, Community, User_Community, Camera_Community
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -18,3 +19,16 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])  # Hash the password
         user.save()
         return user
+    
+class CameraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Camera
+        fields = ["name","latitude","longitude"]
+    def create(self,validated_data):
+        camera = Camera(name = validated_data["name"],
+                        latitude = validated_data["latitude"],
+                        longitude  = validated_data["longitude"]
+                        )
+        camera.save()
+        return camera
+        
