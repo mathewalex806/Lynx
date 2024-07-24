@@ -61,3 +61,19 @@ Content-Type: application/json
   "longitude": "-118.2437"
 }
 
+
+###
+
+### Add community
+
+POST http://localhost:8000/addCommunity/
+Authorization: Token 39f4c9b79185f77e88adfe62e354ac1c720e741d
+Content-Type: application/json
+
+{
+  "name": "Green Valley",
+  "description": "A peaceful and green community.",
+  "city": "Springfield",
+  "locality": "Downtown",
+  "country": "Freedonia"
+}

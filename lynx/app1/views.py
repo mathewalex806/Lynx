@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from .serializers import UserSerializer, CameraSerializer
+from .serializers import UserSerializer, CameraSerializer, CommunitySerializer
 from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
@@ -67,3 +67,17 @@ def addCamera(request):
         else:
             return Response({'error':camera_ser.error_messages}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'Get method': 'Add_camera url'}, status=status.HTTP_200_OK)
+
+
+##Add community
+@api_view(["GET","POST"])
+@permission_classes([IsAuthenticated])
+def addCommunity(request):
+    if request.method == "POST":
+        comm_ser = CommunitySerializer(data=request.data)
+        if comm_ser.is_valid():
+            comm_ser.save()
+            return Response({"Created successfully":comm_ser.data}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"Error":comm_ser.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'Get method': 'Add community url'}, status=status.HTTP_200_OK)

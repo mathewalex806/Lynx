@@ -32,3 +32,18 @@ class CameraSerializer(serializers.ModelSerializer):
         camera.save()
         return camera
         
+
+class CommunitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Community
+        fields = ["name","description","city","locality","country"]
+
+    def create(self, validated_data):
+        community_ser = Community(name= validated_data["name"],
+                                  description= validated_data["description"],
+                                  city= validated_data["city"],
+                                  locality= validated_data["locality"],
+                                  country= validated_data["country"])
+    
+        community_ser.save()
+        return community_ser
