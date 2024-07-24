@@ -46,3 +46,18 @@ Content-Type: application/json
   "username": "testuser",
   "password": "password123"
 }
+
+###
+
+### Add camera url
+
+POST http://localhost:8000/addCamera/
+Authorization: Token 39f4c9b79185f77e88adfe62e354ac1c720e741d
+Content-Type: application/json
+
+{
+  "name": "New Camera",
+  "latitude": "34.0522",
+  "longitude": "-118.2437"
+}
+

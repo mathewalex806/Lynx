@@ -9,4 +9,5 @@ urlpatterns = [
     path ("token_auth_generate/", obtain_auth_token, name="token_generation"),       #Getting token for already created users.
     path("signup/", views.Signup, name="signup"),
     path("login/", views.Login, name="Login"),
+    path("addCamera/", views.addCamera, name="addCamera"),
 ]

@@ -57,9 +57,13 @@ def Login(request):
 ##Add Camera fuction
 
 @api_view(["GET","POST"])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def addCamera(request):
     if request.method == "POST":
         camera_ser = CameraSerializer(data=request.data)
         if camera_ser.is_valid():
-            camera_ser.create()
+            camera_ser.save()
+            return Response({'Successfully created':camera_ser.data}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error':camera_ser.error_messages}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'Get method': 'Add_camera url'}, status=status.HTTP_200_OK)
